@@ -37,6 +37,7 @@ public class FormationsActivity extends AppCompatActivity {
         btnFiltrer = (Button) findViewById(R.id.btnFiltrer);
         txtFiltre = (EditText) findViewById(R.id.txtFiltre);
         creerListe();
+        ecouteFiltrer();
     }
 
     /**
@@ -52,4 +53,33 @@ public class FormationsActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * création de la liste adapter filtrée
+     */
+    private void creerListeFiltre(String filtre){
+        ArrayList<Formation> lesFormations = controle.getLesFormationsFiltre(filtre);
+        if(lesFormations != null){
+            Collections.sort(lesFormations, Collections.<Formation>reverseOrder());
+            ListView listView = (ListView)findViewById(R.id.lstFormations);
+            FormationListAdapter adapter = new FormationListAdapter(lesFormations,FormationsActivity.this);
+            listView.setAdapter(adapter);
+        }
+    }
+
+    /**
+     * méthode événementielle sur le clic du bouton "filtrer"
+     */
+    private void ecouteFiltrer() {
+        btnFiltrer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String filtre = txtFiltre.getText().toString();
+                if (!filtre.isEmpty()) {
+                    creerListeFiltre(filtre);
+                } else {
+                    creerListe();
+                }
+            }
+        });
+    }
 }

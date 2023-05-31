@@ -48,7 +48,7 @@ public class Controle {
      * @param filtre
      * @return
      */
-    public ArrayList<Formation> getLesFormationFiltre(String filtre){
+    public ArrayList<Formation> getLesFormationsFiltre(String filtre){
         ArrayList<Formation> lesFormationsFiltre = new ArrayList<>();
         for(Formation uneFormation : lesFormations){
             if(uneFormation.getTitle().toUpperCase().contains(filtre.toUpperCase())){
